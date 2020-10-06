@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Nze02.Security.Contracts
 {
-    interface ICompanyRepository
+    public interface ICompanyRepository
     {
         Task<IEnumerable<Company>> GetAllCompaniesAsync(bool trackChanges);
         Task<Company> GetCompanyAsync(int CompanyID, bool trackchanges);

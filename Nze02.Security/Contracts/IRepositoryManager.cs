@@ -5,7 +5,8 @@ using System.Threading.Tasks;
 
 namespace Nze02.Security.Contracts
 {
-    interface IRepositoryManager
+    public interface IRepositoryManager
     {
+        ICompanyRepository Company { get; }
     }
 }

@@ -11,6 +11,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Nze02.Security.Contracts;
+using Nze02.Security.Repositories;
 
 namespace Nze02.Security
 {
@@ -27,6 +29,7 @@ namespace Nze02.Security
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("sqlConnection")));
+            services.AddScoped<IRepositoryManager, RepositoryManager>();
 
             services.AddControllers();
         }

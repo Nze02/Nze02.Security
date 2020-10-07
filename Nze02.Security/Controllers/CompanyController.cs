@@ -22,6 +22,7 @@ namespace Nze02.Security.Controllers
             _repository = repository;
         }
 
+        [HttpGet]
         public async Task<IActionResult> GetAllCompaniesAsync()
         {
             var companies = await _repository.Company.GetAllCompaniesAsync(trackChanges: false);

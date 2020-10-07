@@ -17,6 +17,7 @@ namespace Nze02.Security
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
+            modelBuilder.ApplyConfiguration(new RoleConfiguration());
         }
 
         public DbSet<Company> Company { get; set; }

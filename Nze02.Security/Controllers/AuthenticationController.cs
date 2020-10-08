@@ -6,6 +6,7 @@ using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Nze02.Security.Contracts;
 using Nze02.Security.Models;
 
 namespace Nze02.Security.Controllers
@@ -16,11 +17,13 @@ namespace Nze02.Security.Controllers
     {
         private readonly UserManager<User> _userManager;
         private readonly IMapper _mapper;
+        private readonly IAuthenticationManager _authManager;
 
-        public AuthenticationController(IMapper mapper, UserManager<User> userManager)
+        public AuthenticationController(IMapper mapper, UserManager<User> userManager, IAuthenticationManager authManager)
         {
             _mapper = mapper;
             _userManager = userManager;
+            _authManager = authManager;
         }
 
         [HttpPost]
@@ -45,6 +48,23 @@ namespace Nze02.Security.Controllers
             
             await _userManager.AddToRolesAsync(user, userForRegistration.Roles);
             return StatusCode(201);
+        }
+
+
+        [HttpPost("login")]
+        public async Task<IActionResult> Authenticate([FromBody] UserForAuthenticationDto user)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest();
+            }
+
+            if (!await _authManager.ValdiateUser(user))
+            {
+                return Unauthorized($"{ nameof(Authenticate)}: Authentication failed. Wrong user name or password.");
+            }
+            
+            return Ok(new { Token = await _authManager.CreateToken() });
         }
     }
 }

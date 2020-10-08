@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Nze02.Security.Contracts
 {
-    interface IAuthenticationManager
+    public interface IAuthenticationManager
     {
         Task<bool> ValdiateUser(UserForAuthenticationDto userForAuth);
         Task<string> CreateToken();

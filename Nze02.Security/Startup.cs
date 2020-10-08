@@ -72,6 +72,8 @@ namespace Nze02.Security
                     //IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(jwtSettings.GetSection("JwtSecret").Value))
                     };
             });
+            services.AddScoped<IAuthenticationManager, AuthenticationManager>();
+
             services.AddControllers();
         }
 

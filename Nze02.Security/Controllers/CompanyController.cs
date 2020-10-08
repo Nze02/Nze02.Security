@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Nze02.Security.Contracts;
@@ -22,7 +23,7 @@ namespace Nze02.Security.Controllers
             _repository = repository;
         }
 
-        [HttpGet]
+        [HttpGet, Authorize]
         public async Task<IActionResult> GetAllCompaniesAsync()
         {
             var companies = await _repository.Company.GetAllCompaniesAsync(trackChanges: false);
